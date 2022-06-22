@@ -20,5 +20,31 @@ class DatabaseSeeder extends Seeder
         //     'name' => 'Test User',
         //     'email' => 'test@example.com',
         // ]);
+
+        \App\Models\Item::create([
+            'title' => 'Mango',
+            'order' => 1,
+            'status' => 1,
+        ]);
+        \App\Models\Item::create([
+            'title' => 'Watemelon',
+            'order' => 2,
+            'status' => 1,
+        ]);
+        \App\Models\Item::create([
+            'title' => 'Lion',
+            'order' => 3,
+            'status' => 1,
+        ]);
+        \App\Models\Item::create([
+            'title' => 'Banana',
+            'order' => 5,
+            'status' => 1,
+        ]);
+        \App\Models\Item::create([
+            'title' => 'Dragon',
+            'order' => 6,
+            'status' => 1,
+        ]);
     }
 }
