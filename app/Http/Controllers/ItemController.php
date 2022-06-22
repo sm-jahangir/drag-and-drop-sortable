@@ -7,6 +7,30 @@ use Illuminate\Http\Request;
 
 class ItemController extends Controller
 {
+    public function index()
+    {
+        $completeItem = Item::where('status', 1)
+            ->orderBy('order')
+            ->get();
+        return view('category', compact('completeItem'));
+    }
+    public function store(Request $request)
+    {
+        $input = $request->all();
+
+        if (!empty($input['accept'])) {
+            foreach ($input['accept'] as $key => $value) {
+                $key = $key + 1;
+                Item::where('id', $value)
+                    ->update([
+                        'order' => $key
+                    ]);
+            }
+        }
+        return response()->json(['status' => 'success']);
+    }
+
+
     public function itemView()
     {
         // Incomplete Item - Status 0

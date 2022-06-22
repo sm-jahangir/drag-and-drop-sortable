@@ -20,3 +20,7 @@ use App\Http\Controllers\ItemController;
 //route
 Route::get('/', [ItemController::class, 'itemView']);
 Route::post('/update-items', [ItemController::class, 'updateItems'])->name('update.items');
+
+// 
+Route::get('/category', [ItemController::class, 'index']);
+Route::post('/category', [ItemController::class, 'store'])->name('category.items');
