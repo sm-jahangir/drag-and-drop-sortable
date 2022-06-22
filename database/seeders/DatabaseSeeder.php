@@ -46,5 +46,66 @@ class DatabaseSeeder extends Seeder
             'order' => 6,
             'status' => 1,
         ]);
+
+        // Tag Seeder
+        \App\Models\Tag::create([
+            'title' => 'Item 1',
+            'order' => 1,
+            'parent_id' => NULL,
+        ]);
+        // Tag Seeder
+        \App\Models\Tag::create([
+            'title' => 'Item 2',
+            'order' => 2,
+            'parent_id' => NULL,
+        ]);
+        // Tag Seeder
+        \App\Models\Tag::create([
+            'title' => 'Item 3',
+            'order' => 3,
+            'parent_id' => 1,
+        ]);
+        // Tag Seeder
+        \App\Models\Tag::create([
+            'title' => 'Item 4',
+            'order' => 4,
+            'parent_id' => 1,
+        ]);
+        // Tag Seeder
+        \App\Models\Tag::create([
+            'title' => 'Item 5',
+            'order' => 5,
+            'parent_id' => 2,
+        ]);
+        // Tag Seeder
+        \App\Models\Tag::create([
+            'title' => 'Item 6',
+            'order' => 6,
+            'parent_id' => 5,
+        ]);
+        // Tag Seeder
+        \App\Models\Tag::create([
+            'title' => 'Item 7',
+            'order' => 7,
+            'parent_id' => NULL,
+        ]);
+        // Tag Seeder
+        \App\Models\Tag::create([
+            'title' => 'Item 8',
+            'order' => 8,
+            'parent_id' => NULL,
+        ]);
+        // Tag Seeder
+        \App\Models\Tag::create([
+            'title' => 'Item 9',
+            'order' => 9,
+            'parent_id' => NULL,
+        ]);
+        // Tag Seeder
+        \App\Models\Tag::create([
+            'title' => 'Item 10',
+            'order' => 10,
+            'parent_id' => NULL,
+        ]);
     }
 }

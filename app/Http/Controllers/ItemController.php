@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Item;
+use App\Models\Tag;
 use Illuminate\Http\Request;
 
 class ItemController extends Controller
@@ -16,7 +17,10 @@ class ItemController extends Controller
     }
     public function tagindex()
     {
-        return view('nestable.tag');
+
+        // $categories = Tag::where('parent_id', 0)->orderBy('order', 'DESC')->get();
+        $categories = Tag::orderBy('order', 'DESC')->get();
+        return view('nestable.tag', compact('categories'));
     }
     public function store(Request $request)
     {
