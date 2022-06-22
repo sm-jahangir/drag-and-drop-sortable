@@ -24,3 +24,7 @@ Route::post('/update-items', [ItemController::class, 'updateItems'])->name('upda
 // 
 Route::get('/category', [ItemController::class, 'index']);
 Route::post('/category', [ItemController::class, 'store'])->name('category.items');
+
+//
+Route::get('/tag', [ItemController::class, 'tagindex']);
+Route::post('/tag', [ItemController::class, 'tagstore'])->name('tag.items');

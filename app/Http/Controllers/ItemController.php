@@ -14,6 +14,10 @@ class ItemController extends Controller
             ->get();
         return view('category', compact('completeItem'));
     }
+    public function tagindex()
+    {
+        return view('nestable.tag');
+    }
     public function store(Request $request)
     {
         $input = $request->all();
