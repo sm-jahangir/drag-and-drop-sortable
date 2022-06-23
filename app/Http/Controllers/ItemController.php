@@ -26,7 +26,7 @@ class ItemController extends Controller
         foreach ($your_array as $key => $your_single_item) {
             $key = $key + 1;
             if (isset($your_single_item['parent_id'])) {
-                Tag::where('id', $your_single_item['id'])
+                Tag::where('id', $key)
                     ->update([
                         'parent_id' => $your_single_item['parent_id'],
                         'order' => $key,

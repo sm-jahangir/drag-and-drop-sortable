@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('tags', function (Blueprint $table) {
             $table->id();
-            $table->integer('parent_id')->default(0);
+            $table->string('parent_id')->nullable();
             $table->integer('order')->nullable();
             $table->string('title')->nullable();
             $table->string('url')->nullable();
