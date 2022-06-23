@@ -51,13 +51,13 @@ class DatabaseSeeder extends Seeder
         \App\Models\Tag::create([
             'title' => 'Item 1',
             'order' => 1,
-            'parent_id' => NULL,
+            'parent_id' => 0,
         ]);
         // Tag Seeder
         \App\Models\Tag::create([
             'title' => 'Item 2',
             'order' => 2,
-            'parent_id' => NULL,
+            'parent_id' => 0,
         ]);
         // Tag Seeder
         \App\Models\Tag::create([
@@ -87,25 +87,25 @@ class DatabaseSeeder extends Seeder
         \App\Models\Tag::create([
             'title' => 'Item 7',
             'order' => 7,
-            'parent_id' => NULL,
+            'parent_id' => 0,
         ]);
         // Tag Seeder
         \App\Models\Tag::create([
             'title' => 'Item 8',
             'order' => 8,
-            'parent_id' => NULL,
+            'parent_id' => 0,
         ]);
         // Tag Seeder
         \App\Models\Tag::create([
             'title' => 'Item 9',
             'order' => 9,
-            'parent_id' => NULL,
+            'parent_id' => 0,
         ]);
         // Tag Seeder
         \App\Models\Tag::create([
             'title' => 'Item 10',
             'order' => 10,
-            'parent_id' => NULL,
+            'parent_id' => 0,
         ]);
     }
 }

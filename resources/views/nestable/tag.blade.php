@@ -44,7 +44,7 @@
 																			<div class="dd-handle">
 																				{{ $childcategory->title }}
 																			</div>
-																			@if (!empty($childcategory->childs->count() > 0))
+																			@if ($childcategory->childs->count() > 0)
 																				<ol class="dd-list">
 																					@foreach ($childcategory->childs as $subchild)
 																						<li class="dd-item" data-id="{{ $childcategory->id }}">
@@ -64,10 +64,6 @@
 													@endforeach
 												</ol>
 											</div>
-
-											<div class="dd" id="nestable2">
-											</div>
-											<textarea id="nestable-output"></textarea>
 										</tbody>
 									</table>
 								</div>
@@ -82,29 +78,32 @@
 	<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
 	<script src="//cdnjs.cloudflare.com/ajax/libs/nestable2/1.5.0/jquery.nestable.min.js"></script>
 	<script>
-	 $(document).ready(function() {
-	  var updateOutput = function(e) {
-	   var list = e.length ? e : $(e.target),
-	    output = list.data("output");
-	   if (window.JSON) {
-	    output.val(window.JSON.stringify(list.nestable("serialize"))); //, null, 2));
-	    console.log(window.JSON.stringify(list.nestable("serialize"))); //This is my Code
-
-	   } else {
-	    output.val("JSON browser support required for this demo.");
-	   }
-	  };
-
-	  // activate Nestable for list 1
-	  $("#nestable")
-	   .nestable({
-	    group: 1,
+	 $('.dd').nestable({
+	  maxDepth: 10,
+	  group: 1,
+	  callback: function(l, e) {
+	   var _arr = $('.dd').nestable('toArray');
+	   console.log(_arr)
+	   $.ajax({
+	    type: "POST",
+	    headers: {
+	     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+	    },
+	    url: "tag",
+	    data: {
+	     arr: _arr
+	    },
+	    dataType: 'json',
+	    success: function(data) {
+	     console.log(data);
+	     //  console.log(data.success);
+	    },
+	    error: function(error) {
+	     console.log(error.fail);
+	     //  location.reload();
+	    }
 	   })
-	   .on("change", updateOutput);
-	  // output initial serialised data
-	  updateOutput($("#nestable").data("output", $("#nestable-output")));
-
-
+	  }
 	 });
 	</script>
 </body>

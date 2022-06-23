@@ -17,11 +17,32 @@ class ItemController extends Controller
     }
     public function tagindex()
     {
-
-        // $categories = Tag::where('parent_id', 0)->orderBy('order', 'DESC')->get();
-        $categories = Tag::orderBy('order', 'DESC')->get();
+        $categories = Tag::where('parent_id', 0)->orderBy('order', 'ASC')->get();
         return view('nestable.tag', compact('categories'));
     }
+    public function tagstore(Request $request)
+    {
+        $your_array = $request->arr;
+        foreach ($your_array as $key => $your_single_item) {
+            $key = $key + 1;
+            if (isset($your_single_item['parent_id'])) {
+                Tag::where('id', $your_single_item['id'])
+                    ->update([
+                        'parent_id' => $your_single_item['parent_id'],
+                        'order' => $key,
+                        // 'order' =>$your_single_item['id']
+                    ]);
+            } else {
+                Tag::where('id', $your_single_item['id'])
+                    ->update([
+                        'parent_id' => 0,
+                        'order' => $key
+                    ]);
+            }
+        }
+        return response()->json(['status' => 'Hope it will work !']);
+    }
+
     public function store(Request $request)
     {
         $input = $request->all();
