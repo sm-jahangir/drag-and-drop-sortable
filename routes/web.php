@@ -30,4 +30,6 @@ Route::post('/backend/category', [ItemController::class, 'store'])->name('catego
 Route::get('/tag', [ItemController::class, 'tagindex']);
 Route::post('/tag', [ItemController::class, 'tagstore'])->name('tag.items');
 
-Route::resource('category', CategoryController::class);
+// Route::resource('category', CategoryController::class);
+Route::get('category', [CategoryController::class, 'index'])->name('category.index');
+Route::post('/category', [CategoryController::class, 'store'])->name('category.store');

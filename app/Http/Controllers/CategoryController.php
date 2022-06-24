@@ -36,7 +36,27 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $your_array = $request->arr;
+
+        foreach ($your_array as $key => $your_single_item) {
+            $key = $key + 1;
+            if (isset($your_single_item['parent_id'])) {
+                Category::where('id', $your_single_item['id'])
+                    ->update([
+                        'parent_id' => $your_single_item['parent_id'],
+                        // 'order' => $your_single_item['id']
+                        'order' => $key
+                    ]);
+            } else {
+                Category::where('id', $your_single_item['id'])
+                    ->update([
+                        'parent_id' => 0,
+                        // 'order' => $your_single_item['id']
+                        'order' => $key
+                    ]);
+            }
+        }
+        return response()->json(['status' => $your_array]);
     }
 
     /**

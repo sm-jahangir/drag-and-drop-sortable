@@ -4,7 +4,7 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<meta name="csrf-token" content="{{ csrf_token() }}">
 	<title>Category Sortable</title>
 	{{-- <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/nestable2/1.6.0/jquery.nestable.min.css"> --}}
 	<style>
@@ -335,26 +335,29 @@
 	<script src="//cdnjs.cloudflare.com/ajax/libs/nestable2/1.6.0/jquery.nestable.min.js"></script>
 	<script>
 	 $(document).ready(function() {
-	  var updateOutput = function(e) {
-	   var list = e.length ? e : $(e.target),
-	    output = list.data("output");
-	   if (window.JSON) {
-	    output.val(window.JSON.stringify(list.nestable("serialize"))); //, null, 2));
-	    console.log(JSON.stringify(list.nestable("serialize")))
-	   } else {
-	    output.val("JSON browser support required for this demo.");
+	  // Ajax and Nestable Start
+	  $('#nestable').nestable({
+	   group: 1,
+	   callback: function(l, e) {
+	    var _arr = $('#nestable').nestable('toArray');
+	    console.log(_arr)
+	    $.ajax({
+	     type: "POST",
+	     headers: {
+	      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+	     },
+	     url: "category",
+	     data: {
+	      arr: _arr
+	     },
+	     dataType: 'json',
+	     success: function(data) {
+	      console.log(data);
+	     }
+	    })
 	   }
-	  };
-
-	  // activate Nestable for list 1
-	  $("#nestable")
-	   .nestable({
-	    group: 1,
-	   })
-	   .on("change", updateOutput);
-
-	  // output initial serialised data
-	  updateOutput($("#nestable").data("output", $("#nestable-output")));
+	  });
+	  // Ajax and Nestable End
 
 	  $("#nestable-menu").on("click", function(e) {
 	   var target = $(e.target),
