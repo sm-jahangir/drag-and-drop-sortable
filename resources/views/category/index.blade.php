@@ -294,32 +294,33 @@
 
 		<div class="dd" id="nestable">
 			<ol class="dd-list">
-				<li class="dd-item dd3-item" data-id="13">
-					<div class="dd-handle dd3-handle"></div>
-					<div class="dd3-content">Item 13</div>
-				</li>
-				<li class="dd-item dd3-item" data-id="14">
-					<div class="dd-handle dd3-handle"></div>
-					<div class="dd3-content">Item 14</div>
-				</li>
-				<li class="dd-item dd3-item" data-id="15">
-					<div class="dd-handle dd3-handle"></div>
-					<div class="dd3-content">Item 15</div>
-					<ol class="dd-list">
-						<li class="dd-item dd3-item" data-id="16">
-							<div class="dd-handle dd3-handle"></div>
-							<div class="dd3-content">Item 16</div>
-						</li>
-						<li class="dd-item dd3-item" data-id="17">
-							<div class="dd-handle dd3-handle"></div>
-							<div class="dd3-content">Item 17</div>
-						</li>
-						<li class="dd-item dd3-item" data-id="18">
-							<div class="dd-handle dd3-handle"></div>
-							<div class="dd3-content">Item 18</div>
-						</li>
-					</ol>
-				</li>
+
+				@foreach ($categories as $category)
+					<li class="dd-item dd3-item" data-id="{{ $category->id }}">
+						<div class="dd-handle dd3-handle"></div>
+						<div class="dd3-content">{{ $category->title }}</div>
+						@if ($category->childs->count() > 0)
+							<ol class="dd-list">
+								@foreach ($category->childs as $subCategory)
+									<li class="dd-item dd3-item" data-id="{{ $subCategory->id }}">
+										<div class="dd-handle dd3-handle"></div>
+										<div class="dd3-content">{{ $subCategory->title }}</div>
+										@if ($subCategory->childs->count() > 0)
+											@foreach ($subCategory->childs as $childCategory)
+												<ol class="dd-list">
+													<li class="dd-item dd3-item" data-id="{{ $childCategory->id }}">
+														<div class="dd-handle dd3-handle"></div>
+														<div class="dd3-content">{{ $childCategory->title }}</div>
+													</li>
+												</ol>
+											@endforeach
+										@endif
+									</li>
+								@endforeach
+							</ol>
+						@endif
+					</li>
+				@endforeach
 			</ol>
 		</div>
 
