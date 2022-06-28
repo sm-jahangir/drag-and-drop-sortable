@@ -66,6 +66,17 @@ class PostController extends Controller
             $image_resize->save(public_path('backend/thumbnail/' . $filename));
             $post->original_url = $filename;
         }
+
+        if ($request->hasfile('gallery')) {
+            foreach ($request->file('gallery') as $key => $file) {
+                $name = time() . '-' . $key . '-gallery.' . $file->extension();
+                $file->move(public_path() . '/backend/gallery/', $name);
+                $data[] = $name;
+            }
+
+            $post->gallery = json_encode($data);
+        }
+
         $post->save();
 
         return back()->with('success', 'Your images has been successfully Upload');
@@ -79,7 +90,7 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
-        //
+        return response()->json($post);
     }
 
     /**
@@ -113,6 +124,6 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
-        //
+        return "Hello world";
     }
 }

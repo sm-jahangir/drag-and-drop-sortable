@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('gallery_url')->nullable();
             $table->string('original_url')->nullable();
             $table->string('thumb_url')->nullable();
+            $table->string('gallery')->nullable();
             $table->timestamps();
         });
     }

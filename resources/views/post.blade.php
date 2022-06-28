@@ -25,7 +25,10 @@
 					<input type="text" name="title" class="form-control" id="inputTitle" placeholder="Title Here">
 				</div>
 				<div class="form-class">
-					<input type="file" name="image1" class="form-control" id="fileIdHere">
+					Image: <input type="file" name="image1" class="form-control" id="fileIdHere">
+				</div>
+				<div class="form-class mt-4">
+					Gallery: <input type="file" name="gallery[]" class="form-control" id="fileIdHere" multiple>
 				</div>
 				{{-- all errors --}}
 				@if (count($errors) > 0)
@@ -45,7 +48,7 @@
 				<thead>
 					<tr>
 						<th scope="col">#</th>
-						<th scope="col">Name</th>
+						<th scope="col">Gallery</th>
 						<th scope="col">Image</th>
 						<th scope="col">Action</th>
 					</tr>
@@ -54,12 +57,21 @@
 					@foreach ($posts as $post)
 						<tr>
 							<th scope="row">{{ $post->id }}</th>
-							<th scope="row">{{ $post->original_url }}</th>
+							<th scope="row">
+								@php
+									$x = json_decode($post->gallery);
+								@endphp
+								@foreach ($x as $key => $val)
+									<img width="50px" src="{{ asset('backend/gallery/' . $val) }}">
+								@endforeach
+
+							</th>
 							<td>
-								<img src="{{ asset('thumbnail') . '/' . $post->original_url }}" alt="">
+								<img width="50" src="{{ asset('backend/thumbnail') . '/' . $post->original_url }}" alt="">
 							</td>
 							<td>
 								<button class="btn btn-warning btn-sm">Delete</button>
+								<a href="{{ route('post.show', $post->id) }}" class="btn btn-warning btn-sm">Show</a>
 							</td>
 						</tr>
 					@endforeach
