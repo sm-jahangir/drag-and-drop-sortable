@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Post;
 use Illuminate\Http\Request;
 use Intervention\Image\Facades\Image;
+use Illuminate\Support\Facades\File;
+
 
 class PostController extends Controller
 {
@@ -37,21 +39,34 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        $originalImage = $request->file('image1');
-        $thumbnailImage = Image::make($originalImage);
-        $thumbnailPath = public_path() . '/thumbnail/';
-        $originalPath = public_path() . '/images/';
-        $thumbnailImage->save($originalPath . time() . $originalImage->getClientOriginalName());
-        $thumbnailImage->resize(150, 150);
-        // $thumbnailImage->resize(150, 150, function ($constraint) {
-        //     $constraint->aspectRatio();
-        // });
+        $post = new Post();
+        // if ($request->hasFile('image1')) {
+        //     $originalImage = $request->file('image1');
+        //     $thumbnailImage = Image::make($originalImage);
+        //     $thumbnailPath = public_path() . '/thumbnail/';
+        //     $originalPath = public_path() . '/images/';
+        //     $thumbnailImage->save($originalPath . time() . $originalImage->getClientOriginalName());
+        //     $thumbnailImage->resize(150, 150);
+        //     // $thumbnailImage->resize(150, 150, function ($constraint) {
+        //     //     $constraint->aspectRatio();
+        //     // });
+        //     $thumbnailImage->save($thumbnailPath . time() . $originalImage->getClientOriginalName());
+        //     $imagemodel->original_url = time() . $originalImage->getClientOriginalName();
+        // }
 
-        $thumbnailImage->save($thumbnailPath . time() . $originalImage->getClientOriginalName());
+        if ($request->hasFile('image1')) {
 
-        $imagemodel = new Post();
-        $imagemodel->original_url = time() . $originalImage->getClientOriginalName();
-        $imagemodel->save();
+            $image       = $request->file('image1');
+            $filename    = time() . '.' . $image->getClientOriginalExtension();
+            //Fullsize
+            $image->move(public_path() . '/backend/full/', $filename);
+            //ReSize
+            $image_resize = Image::make(public_path() . '/backend/full/' . $filename);
+            $image_resize->fit(300, 300);
+            $image_resize->save(public_path('backend/thumbnail/' . $filename));
+            $post->original_url = $filename;
+        }
+        $post->save();
 
         return back()->with('success', 'Your images has been successfully Upload');
     }

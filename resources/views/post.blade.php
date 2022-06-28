@@ -45,6 +45,7 @@
 				<thead>
 					<tr>
 						<th scope="col">#</th>
+						<th scope="col">Name</th>
 						<th scope="col">Image</th>
 						<th scope="col">Action</th>
 					</tr>
@@ -53,6 +54,7 @@
 					@foreach ($posts as $post)
 						<tr>
 							<th scope="row">{{ $post->id }}</th>
+							<th scope="row">{{ $post->original_url }}</th>
 							<td>
 								<img src="{{ asset('thumbnail') . '/' . $post->original_url }}" alt="">
 							</td>
