@@ -17,7 +17,11 @@ class PostController extends Controller
      */
     public function index()
     {
+        // for implement single page application : https://www.youtube.com/watch?v=P_jT1Dfa8k4
         $posts = Post::all();
+        foreach ($posts as $key => $data) {
+            $data->gallery = json_decode($data->gallery);
+        }
         return view('post', compact('posts'));
     }
 
@@ -88,9 +92,14 @@ class PostController extends Controller
      * @param  \App\Models\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function show(Post $post)
+    public function show($id)
     {
-        return response()->json($post);
+        // for implement single page application : https://www.youtube.com/watch?v=P_jT1Dfa8k4
+        $posts[] = Post::findOrFail($id);
+        foreach ($posts as $key => $data) {
+            $data->gallery = json_decode($data->gallery);
+        }
+        return response()->json($posts[0]);
     }
 
     /**

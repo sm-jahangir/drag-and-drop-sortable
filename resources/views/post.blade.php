@@ -58,12 +58,16 @@
 						<tr>
 							<th scope="row">{{ $post->id }}</th>
 							<th scope="row">
-								@php
+								@foreach ($post->gallery as $item)
+									<img width="50px" src="{{ asset('backend/gallery/' . $item) }}">
+								@endforeach
+								{{-- @php
 									$x = json_decode($post->gallery);
 								@endphp
 								@foreach ($x as $key => $val)
 									<img width="50px" src="{{ asset('backend/gallery/' . $val) }}">
-								@endforeach
+								@endforeach --}}
+								{{-- jodi controller e Post::all() kore return korto tahole ekhane decode korte holo --}}
 
 							</th>
 							<td>
